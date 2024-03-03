@@ -69,41 +69,34 @@ Algoritmo ControlDeInventario
 		Imprimir "-----Control De Inventario-----"
 		Imprimir "1- Registro" // Hace falta hacer que el usuario pueda restar el stock
 		Imprimir "2- Entrada / Salida"
-		Imprimir "4- Inventario"
-		Imprimir "5- Informe"
-		Imprimir "6- Salir"
+		Imprimir "3- Inventario"
+		Imprimir "4- Informe"
+		Imprimir "5- Salir"
 		Escribir "Seleccione una opcion:"
 		Leer opc
 		
 		Segun opc Hacer
-			
 			1:
 				Borrar Pantalla
-				Escribir "REGISTRO"
-				
-				Si opcReg == 1 Entonces
+				Imprimir "BIENVENIDO"
+				Imprimir "REGISTRO"
+				Imprimir "Digite la cantidad de productos que desea añadir: "
+				Leer maximo_articulos		
+				Borrar Pantalla 
+				Dimensionar lista[maximo_articulos], precio[maximo_articulos], stock[maximo_articulos];
+				Para i<-1 Hasta maximo_articulos Con Paso 1 Hacer
+					Escribir "Ingrese el nombre del producto ",i,": "
+					leer lista[i]
+					Escribir 'Ingrese Precio de ',lista[i],':'
+					Leer precio[i]
+					Escribir "Ingrese el stock de ",lista[i],": "
+					Leer stock[i]
 					Borrar Pantalla
-					Imprimir "BIENVENIDO"
-					Imprimir "REGISTRO"
-					Imprimir "Digite la cantidad de productos que desea a adir: "
-					Leer maximo_articulos		
-					Borrar Pantalla 
-					Dimensionar lista[maximo_articulos], precio[maximo_articulos], stock[maximo_articulos];
-					Para i<-1 Hasta maximo_articulos Con Paso 1 Hacer
-						Escribir "Ingrese el nombre del producto ",i,": "
-						leer lista[i]
-						Escribir 'Ingrese Precio de ',lista[i],':'
-						Leer precio[i]
-						Escribir "Ingrese el stock de ",lista[i],": "
-						Leer stock[i]
-						Borrar Pantalla
-					FinPara
+				FinPara
 					
-					Para i<-1 Hasta maximo_articulos Con Paso 1 Hacer //Recorrer toda la lista
-						Escribir "Precio ", lista[i], ": ", precio[i], " . ", "Stock: ", stock[i];
-					FinPara
-				FinSi
-					
+				Para i<-1 Hasta maximo_articulos Con Paso 1 Hacer //Recorrer toda la lista
+					Escribir "Precio ", lista[i], ": ", precio[i], "¢. ", "Stock: ", stock[i];
+				FinPara
 			2:
 				Borrar Pantalla
 				Imprimir "BIENVENIDO"
@@ -114,7 +107,7 @@ Algoritmo ControlDeInventario
 					Borrar Pantalla
 					Imprimir "BIENVENIDO"
 					Imprimir "ENTRADA"
-					Imprimir "Ingrese el nombre del producto que desea a adir stock:"
+					Imprimir "Ingrese el nombre del producto que desea añadir stock:"
 				SiNo
 					Si opcES == 2 Entonces
 						Borrar Pantalla
@@ -131,7 +124,7 @@ Algoritmo ControlDeInventario
 				Imprimir "BIENVENIDO"
 				Imprimir "INVENTARIO"
 				Para i<-1 Hasta maximo_articulos Con Paso 1 Hacer
-					Escribir "Precio ", lista[i], ": ", precio[i], " . ", "Stock: ", stock[i];
+					Escribir "Precio ", lista[i], ": ", precio[i], "¢. ", "Stock: ", stock[i];
 				FinPara
 			4: 
 				Escribir "INFORME"
@@ -139,12 +132,12 @@ Algoritmo ControlDeInventario
 				Escribir "SALIENDO..."
 			De Otro Modo:
 				Escribir "Opcion no valida"
-			Si opc<>5 Entonces
+		FinSegun
+		Si opc<>5 Entonces
 			Escribir "Presione (enter) para volver al menu..."
 			Esperar Tecla
 		FinSi
-		FinSegun
-	Hasta Que opc = 5
+	Hasta Que opc = 5	
 
 
 FinAlgoritmo
