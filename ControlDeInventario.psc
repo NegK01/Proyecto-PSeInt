@@ -41,7 +41,6 @@ Algoritmo ControlDeInventario
 						Leer lista[contador + i]
 						Escribir "Ingrese el precio de ",lista[contador + i],":"
 						Leer precio[contador + i]
-						precioTotal <- precioTotal + ConvertirANumero(precio[i + contador])
 						Escribir "Ingrese la fecha de vencimiento del producto"
 						Escribir Sin Saltar "Dia"; leer d
 						Escribir Sin Saltar "Mes";leer m
@@ -126,16 +125,13 @@ Algoritmo ControlDeInventario
 				Borrar Pantalla
 				Imprimir "BIENVENIDO"
 				Imprimir "EDITAR PRODUCTO"
-				Imprimir "Ingrese el nombre del producto que desea editar: "
+				Imprimir "Ingrese el nombre del producto que desea editar su nombre y fecha: "
 				leer busca
 				encontrado = Falso
 				Para i<-1 Hasta contador Con Paso 1 Hacer
 					Si busca == lista[i] Entonces
 						Escribir "Ingrese el nuevo nombre para producto ",lista[i],": "
 						Leer lista[i]
-						Escribir "Ingrese el nuevo precio de ",lista[i],":"
-						Leer precio[i]
-						precioTotal <- precioTotal - ConvertirANumero(precio[i - 1]) + ConvertirANumero(precio[i])
 						Escribir "Ingrese la fecha de vencimiento del producto"
 						Escribir Sin Saltar "Dia";leer d
 						Escribir Sin Saltar "Mes";leer m
@@ -179,12 +175,14 @@ Algoritmo ControlDeInventario
 				// tabla de informe
 				Escribir "| Producto | Precio | Stock | Vencimiento |"
 				Escribir "|----------|--------|-------|-------------|"
+				precioTotal = 0
 				
 				// productos en forma de tabla
 				Para i <- 1 Hasta contador Con Paso 1 Hacer
 					Escribir "| ", lista[i], "   | ", precio[i], "¢  |", stock[i], "      | ", dia[i],"/",mes[i],"/",anio[i], "            |"
+					precioTotal<- precioTotal + ConvertirANumero(precio[i]) * stock[i]
 				FinPara
-				Escribir "Precio total del inventario: ", precioTotal
+				Escribir "Precio total del inventario: ", precioTotal, "¢"
 			6:	
 				Escribir "Desea ver el informe antes de salir? (S/N)"
 				Leer respuesta
@@ -195,7 +193,7 @@ Algoritmo ControlDeInventario
 					Para i <- 1 Hasta contador Con Paso 1 Hacer
 						Escribir "| ", lista[i], "   | ", precio[i], "¢  |", stock[i], "      | ", dia[i],"/",mes[i],"/",anio[i], "            |"
 					FinPara
-					Escribir "Precio total del inventario: ", precioTotal
+					Escribir "Precio total del inventario: ", precioTotal, "¢"
 					Escribir ""
 					Escribir "SALIENDO..."
 				Sino // El respuesta == "no" realmente no importa hacerlo, el usuario esta queriendo salir
