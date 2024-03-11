@@ -2,6 +2,7 @@ Algoritmo ControlDeInventario
     // Definiciones de variables
 	Definir opc, opcReg, opcES, contador, maximo_articulos, cantidad, precioTotal Como Entero
 	Definir busca Como Caracter
+	Definir validar_opc como cadena
 	
     
     // Dimensionamos los arreglos para almacenar los datos
@@ -24,15 +25,13 @@ Algoritmo ControlDeInventario
 		Escribir "Seleccione una opcion:"
 		Leer opc
 		
-		
-		
 		Segun opc Hacer
 			1:
-				
+				//esta es la opcion de registro de productos
                 Borrar Pantalla
 				Imprimir "BIENVENIDO"
 				Imprimir "REGISTRO"
-				Imprimir "Digite la cantidad de productos que desea aÃ±adir: "
+				Imprimir "Digite la cantidad de productos que desea añadir: "
 				Leer maximo_articulos
 				
 				Para i<-1 Hasta maximo_articulos Con Paso 1 Hacer
@@ -44,8 +43,8 @@ Algoritmo ControlDeInventario
 						Escribir "Ingrese la fecha de vencimiento del producto"
 						Escribir Sin Saltar "Dia"; leer d
 						Escribir Sin Saltar "Mes";leer m
-						Escribir Sin Saltar "AÃ±o";leer a
-						
+						Escribir Sin Saltar "Año";leer a
+						// sino se cumple las fechas como corresponde, se repite hasta que cumpla la condicion
 						Si (d >= 1 y d <= 31) y (m >= 1 y m <= 12) y (a >= 0 y a <= 3000) Entonces
 							dia[contador + i] = d
 							mes[contador + i] = m
@@ -54,7 +53,7 @@ Algoritmo ControlDeInventario
 						Sino
 							lista[contador + i]=""
 							precio[contador + i]=""
-							Escribir "La fecha ingresada es invÃ¡lida. Intente nuevamente"
+							Escribir "La fecha ingresada es inválida. Intente nuevamente"
 							fechaCorrecta = Falso
 						FinSi
 					Hasta Que fechaCorrecta = Verdadero
@@ -74,7 +73,7 @@ Algoritmo ControlDeInventario
 					Borrar Pantalla
 					Imprimir "BIENVENIDO"
 					Imprimir "ENTRADA"
-					Imprimir "Ingrese el nombre del producto que desea aÃ±adir stock:"
+					Imprimir "Ingrese el nombre del producto que desea añadir stock:"
 					leer busca
 					encontrado = Falso // esta variable es para corregir la logica de no repetir: Imprimir "Producto no encontrado." cuando se este buscando el nombre que desea agregar stock
 					Para i<-1 Hasta contador Con Paso 1 Hacer
@@ -105,7 +104,7 @@ Algoritmo ControlDeInventario
 									stock[i] = stock[i]-ABS(cantidad)
 									encontrado = Verdadero
 								SiNo
-									Imprimir "No se pueden eliminar mÃ¡s de lo que hay"
+									Imprimir "No se pueden eliminar más de lo que hay"
 									encontrado = Verdadero
 								FinSi
 							FinSi
@@ -122,6 +121,7 @@ Algoritmo ControlDeInventario
 					FinSi
 				FinSi
 			3:
+				//opcion para editar el producto
 				Borrar Pantalla
 				Imprimir "BIENVENIDO"
 				Imprimir "EDITAR PRODUCTO"
@@ -132,10 +132,12 @@ Algoritmo ControlDeInventario
 					Si busca == lista[i] Entonces
 						Escribir "Ingrese el nuevo nombre para producto ",lista[i],": "
 						Leer lista[i]
+						Escribir "Ingrese el precio de ",lista[i],":"
+						Leer precio[i]
 						Escribir "Ingrese la fecha de vencimiento del producto"
 						Escribir Sin Saltar "Dia";leer d
 						Escribir Sin Saltar "Mes";leer m
-						Escribir Sin Saltar "AÃ±o";leer a
+						Escribir Sin Saltar "Año";leer a
 						encontrado = Verdadero
 						
 						Repetir
@@ -147,7 +149,7 @@ Algoritmo ControlDeInventario
 							Sino
 								lista[i]=""
 								precio[i]=""
-								Escribir "La fecha ingresada es invÃ¡lida. Intente nuevamente"
+								Escribir "La fecha ingresada es inválida. Intente nuevamente"
 								fechaCorrecta = Falso
 							FinSi
 						Hasta Que fechaCorrecta = Verdadero
@@ -163,7 +165,7 @@ Algoritmo ControlDeInventario
 				Imprimir "INVENTARIO"
 				
 				Para i<-1 Hasta contador Con Paso 1 Hacer //se recorre el arreglo para mostrar todos los productos registrados
-					Escribir "Producto: ", lista[i], ", Precio: ", precio[i], "Â¢, Stock: ", stock[i]," Vencimiento: ",dia[i],"/",mes[i],"/",anio[i]
+					Escribir "Producto: ", lista[i], ", Precio: ", precio[i], "¢, Stock: ", stock[i]," Vencimiento: ",dia[i],"/",mes[i],"/",anio[i]
 				FinPara
 			5: 
 				// aqui va lo del informe
@@ -179,10 +181,10 @@ Algoritmo ControlDeInventario
 				
 				// productos en forma de tabla
 				Para i <- 1 Hasta contador Con Paso 1 Hacer
-					Escribir "| ", lista[i], "   | ", precio[i], "Â¢  |", stock[i], "      | ", dia[i],"/",mes[i],"/",anio[i], "            |"
+					Escribir "| ", lista[i], "   | ", precio[i], "¢  |", stock[i], "      | ", dia[i],"/",mes[i],"/",anio[i], "            |"
 					precioTotal<- precioTotal + ConvertirANumero(precio[i]) * stock[i]
 				FinPara
-				Escribir "Precio total del inventario: ", precioTotal, "Â¢"
+				Escribir "Precio total del inventario: ", precioTotal, "¢"
 			6:	
 				Escribir "Desea ver el informe antes de salir? (S/N)"
 				Leer respuesta
@@ -191,9 +193,9 @@ Algoritmo ControlDeInventario
 					Escribir "|----------|--------|-------|-------------|"
 					
 					Para i <- 1 Hasta contador Con Paso 1 Hacer
-						Escribir "| ", lista[i], "   | ", precio[i], "Â¢  |", stock[i], "      | ", dia[i],"/",mes[i],"/",anio[i], "            |"
+						Escribir "| ", lista[i], "   | ", precio[i], "¢  |", stock[i], "      | ", dia[i],"/",mes[i],"/",anio[i], "            |"
 					FinPara
-					Escribir "Precio total del inventario: ", precioTotal, "Â¢"
+					Escribir "Precio total del inventario: ", precioTotal, "¢"
 					Escribir ""
 					Escribir "SALIENDO..."
 				Sino // El respuesta == "no" realmente no importa hacerlo, el usuario esta queriendo salir
@@ -202,7 +204,7 @@ Algoritmo ControlDeInventario
 			De Otro Modo:
 				Escribir "Opcion no valida"
 		FinSegun
-		
+	
         // presionar cualquier tecla para continuar, pero no la tecla de apagar la pc xD
 		Si opc <> 6 Entonces
 			Escribir "Presione (enter) para volver al menu..."
